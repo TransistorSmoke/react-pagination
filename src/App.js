@@ -9,6 +9,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingData, setLoadingData] = useState(false);
   const [digimonsPerPage] = useState(12);
+  const [activePage, setActivePage] = useState(1);
 
   useEffect(() => {
     const fetchDigimons = async () => {
@@ -27,6 +28,7 @@ function App() {
 
   const onSelectPage = (pageNumber) => {
     setCurrentPage(pageNumber);
+    setActivePage(pageNumber);
   };
 
   const lastIndexInPage = currentPage * digimonsPerPage;
@@ -44,6 +46,7 @@ function App() {
         totalDigimonCount={digimons.length}
         digimonsPerPage={digimonsPerPage}
         selectPage={onSelectPage}
+        activePage={activePage}
       />
     </div>
   );

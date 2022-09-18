@@ -15,12 +15,16 @@ const Pagination = (props) => {
       <nav aria-label="Page navigation example">
         <ul className="pagination m-0">
           {pages.map((pageNumber) => (
-            <li key={pageNumber} className="page-item">
+            <li
+              key={pageNumber}
+              className={`page-item ${
+                props.activePage === pageNumber ? 'active' : ''
+              }`}
+            >
               <button
                 className="page-link"
                 onClick={() => props.selectPage(pageNumber)}
               >
-                {' '}
                 {pageNumber}
               </button>
             </li>
