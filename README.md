@@ -5,9 +5,7 @@ This React app pulls Digimon data from an API and displays results section by se
 ....Digimon was one of my favorite animes when I was about 13-14 years old..........
 
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
