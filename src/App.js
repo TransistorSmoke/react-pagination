@@ -11,6 +11,7 @@ function App() {
   const [digimonsPerPage] = useState(12);
   const [activePage, setActivePage] = useState(1);
   const [digimonInfo, setDigimonInfo] = useState(null);
+  const [digimonLevels, setDigimonLevels] = useState([]);
 
   const lastIndexInPage = currentPage * digimonsPerPage;
   const firstIndexInPage = lastIndexInPage - digimonsPerPage;
@@ -20,20 +21,31 @@ function App() {
   );
 
   useEffect(() => {
-    const fetchDigimons = async () => {
-      setLoadingData(true);
-      const dataDigimons = await fetch(
-        'https://digimon-api.vercel.app/api/digimon'
-      );
-      const parsedData = await dataDigimons.json();
-
-      setDigimons(parsedData);
-      setLoadingData(false);
-    };
-
     fetchDigimons();
+    setDigimonLevels(getUniqueMonsterLevels(digimons));
   }, []);
 
+  // Fetch initial data from Digimon API
+  const fetchDigimons = async () => {
+    setLoadingData(true);
+    const dataDigimons = await fetch(
+      'https://digimon-api.vercel.app/api/digimon'
+    );
+    const parsedDigimonData = await dataDigimons.json();
+    setDigimons(parsedDigimonData);
+    setLoadingData(false);
+  };
+
+  const getUniqueMonsterLevels = (arrayDigimons) => {
+    const levels = arrayDigimons?.map((digimon) => digimon.level);
+    const uniqueLevels = levels?.filter(
+      (level, index, array) => array.indexOf(level) === index
+    );
+
+    return uniqueLevels || [];
+  };
+
+  // App support functions
   const onSelectPage = (pageNumber) => {
     setCurrentPage(pageNumber);
     setActivePage(pageNumber);
@@ -63,6 +75,11 @@ function App() {
         selectPage={onSelectPage}
         activePage={activePage}
       />
+      <ul>
+        {digimonLevels.map((level, index) => (
+          <li key={index}>{level}</li>
+        ))}
+      </ul>
     </div>
   );
 }
