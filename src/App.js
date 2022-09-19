@@ -22,7 +22,6 @@ function App() {
 
   useEffect(() => {
     fetchDigimons();
-    setDigimonLevels(getUniqueMonsterLevels(digimons));
   }, []);
 
   // Fetch initial data from Digimon API
@@ -32,17 +31,19 @@ function App() {
       'https://digimon-api.vercel.app/api/digimon'
     );
     const parsedDigimonData = await dataDigimons.json();
+    const uniqueLevels = getUniqueMonsterLevels(parsedDigimonData)
+
     setDigimons(parsedDigimonData);
+    setDigimonLevels(uniqueLevels);
     setLoadingData(false);
   };
 
-  const getUniqueMonsterLevels = (arrayDigimons) => {
-    const levels = arrayDigimons?.map((digimon) => digimon.level);
-    const uniqueLevels = levels?.filter(
+  const getUniqueMonsterLevels =  (arrayDigimons) => {
+    const levels =  arrayDigimons?.map((digimon) => digimon.level);
+    const uniqueLevels =  levels?.filter(
       (level, index, array) => array.indexOf(level) === index
     );
-
-    return uniqueLevels || [];
+    return uniqueLevels;
   };
 
   // App support functions
@@ -75,11 +76,7 @@ function App() {
         selectPage={onSelectPage}
         activePage={activePage}
       />
-      <ul>
-        {digimonLevels.map((level, index) => (
-          <li key={index}>{level}</li>
-        ))}
-      </ul>
+
     </div>
   );
 }
