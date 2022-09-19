@@ -5,7 +5,7 @@ import spinner from '../assets/spinner.gif';
 
 const DigimonList = (props) => {
   return !props.loading ? (
-    <div>
+    <div className="border">
       <Card info={props.digimonInfo} onClick={props.closeInfoCard}></Card>
       <ul className="list-group mt-3 mb-4 w-50 mx-auto">
         {props.digimons.map((digimon, i) => (

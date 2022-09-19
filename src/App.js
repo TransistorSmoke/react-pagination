@@ -3,6 +3,8 @@ import DigimonList from './components/DigimonList';
 import './custom.scss';
 import logo from './assets/logo.png';
 import Pagination from './components/Pagination';
+import Searchbar from './components/UI/Searchbar';
+import Dropdown from './components/UI/Dropdown';
 
 function App() {
   const [digimons, setDigimons] = useState([]);
@@ -12,6 +14,7 @@ function App() {
   const [activePage, setActivePage] = useState(1);
   const [digimonInfo, setDigimonInfo] = useState(null);
   const [digimonLevels, setDigimonLevels] = useState([]);
+  const [allDigimons, setAllDigimons] = useState([]);
 
   const lastIndexInPage = currentPage * digimonsPerPage;
   const firstIndexInPage = lastIndexInPage - digimonsPerPage;
@@ -31,16 +34,17 @@ function App() {
       'https://digimon-api.vercel.app/api/digimon'
     );
     const parsedDigimonData = await dataDigimons.json();
-    const uniqueLevels = getUniqueMonsterLevels(parsedDigimonData)
+    const uniqueLevels = getUniqueMonsterLevels(parsedDigimonData);
 
     setDigimons(parsedDigimonData);
+    setAllDigimons(digimons);
     setDigimonLevels(uniqueLevels);
     setLoadingData(false);
   };
 
-  const getUniqueMonsterLevels =  (arrayDigimons) => {
-    const levels =  arrayDigimons?.map((digimon) => digimon.level);
-    const uniqueLevels =  levels?.filter(
+  const getUniqueMonsterLevels = (arrayDigimons) => {
+    const levels = arrayDigimons?.map((digimon) => digimon.level);
+    const uniqueLevels = levels?.filter(
       (level, index, array) => array.indexOf(level) === index
     );
     return uniqueLevels;
@@ -60,9 +64,18 @@ function App() {
     setDigimonInfo(null);
   };
 
+  const searchDigimonsHandler = (searchText) => {
+    console.log('searched term: ', searchText);
+
+    const searchResults = digimons.filter((digimon) =>
+      digimon.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+  };
+
   return (
-    <div className="container mt-5 text-center">
+    <div className="container mt-3 text-center border">
       <img src={logo} alt="digimon logo" className="my-3" />
+      <Searchbar className="border" onSearchDigimons={searchDigimonsHandler} />
       <DigimonList
         digimons={digimonsInCurrentPage}
         loading={loadingData}
@@ -77,6 +90,7 @@ function App() {
         activePage={activePage}
       />
 
+      <Dropdown />
     </div>
   );
 }

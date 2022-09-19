@@ -11,7 +11,7 @@ const Pagination = (props) => {
     pages.push(x);
   }
   return (
-    <div className="d-flex justify-content-center align-items-center mt-5">
+    <div className="d-flex justify-content-center align-items-center mt-3 mb-4">
       <nav aria-label="Page navigation example">
         <ul className="pagination m-0">
           {pages.map((pageNumber) => (
