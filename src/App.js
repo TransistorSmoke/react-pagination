@@ -4,7 +4,7 @@ import './custom.scss';
 import logo from './assets/logo.png';
 import Pagination from './components/Pagination';
 import Searchbar from './components/UI/Searchbar';
-// import Dropdown from './components/UI/Dropdown';
+import LevelFilter from './components/LevelFilter';
 
 function App() {
   const [digimons, setDigimons] = useState([]);
@@ -14,7 +14,9 @@ function App() {
   const [activePage, setActivePage] = useState(1);
   const [digimonInfo, setDigimonInfo] = useState(null);
   const [allDigimons, setAllDigimons] = useState([]);
-  // const [levels, setLevels] = useState(null);
+  const [levels, setLevels] = useState(null);
+
+  const [filterLevel, setFilterLevel] = useState('All');
 
   const lastIndexInPage = currentPage * digimonsPerPage;
   const firstIndexInPage = lastIndexInPage - digimonsPerPage;
@@ -39,7 +41,7 @@ function App() {
     setDigimons(parsedDigimonData);
     setAllDigimons(parsedDigimonData);
     setLoadingData(false);
-    // setLevels(uniqueLevels);
+    setLevels([...uniqueLevels, 'All']);
   };
 
   const getUniqueMonsterLevels = (arrayDigimons) => {
@@ -72,10 +74,25 @@ function App() {
     setDigimons(searchResults);
   };
 
+  const onFilterDigimons = (level) => {
+    if (level.toLowerCase() === 'all') {
+      setDigimons(allDigimons);
+      return;
+    }
+
+    const digimonsByLevel = allDigimons.filter(
+      (digimon) => digimon.level === level
+    );
+
+    setDigimons(digimonsByLevel);
+  };
+
   return (
     <div className="container mt-3 text-center">
       <img src={logo} alt="digimon logo" className="my-3" />
       <Searchbar onSearchDigimons={searchDigimonsHandler} />
+
+      <LevelFilter levels={levels} filterDigimons={onFilterDigimons} />
       <DigimonList
         digimons={digimonsInCurrentPage}
         loading={loadingData}
@@ -89,8 +106,6 @@ function App() {
         selectPage={onSelectPage}
         activePage={activePage}
       />
-
-      {/* <Dropdown levels={levels} /> */}
     </div>
   );
 }
