@@ -16,8 +16,6 @@ function App() {
   const [allDigimons, setAllDigimons] = useState([]);
   const [levels, setLevels] = useState(null);
 
-  const [filterLevel, setFilterLevel] = useState('All');
-
   const lastIndexInPage = currentPage * digimonsPerPage;
   const firstIndexInPage = lastIndexInPage - digimonsPerPage;
   const digimonsInCurrentPage = digimons.slice(
@@ -27,6 +25,7 @@ function App() {
 
   useEffect(() => {
     fetchDigimons();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fetch initial data from Digimon API
