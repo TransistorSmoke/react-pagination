@@ -9,7 +9,6 @@ const Card = (props) => {
           <div className={classes.backdrop} onClick={props.onClick}></div>
           <div
             className={`card p-3 position-absolute top-50 start-50 translate-middle ${classes.aboveBackdrop}`}
-            style={{ width: '18rem' }}
           >
             <img
               src={props.info.img}

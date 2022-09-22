@@ -13,8 +13,8 @@ function App() {
   const [digimonsPerPage] = useState(12);
   const [activePage, setActivePage] = useState(1);
   const [digimonInfo, setDigimonInfo] = useState(null);
-  const [digimonLevels, setDigimonLevels] = useState([]);
   const [allDigimons, setAllDigimons] = useState([]);
+  const [levels, setLevels] = useState(null);
 
   const lastIndexInPage = currentPage * digimonsPerPage;
   const firstIndexInPage = lastIndexInPage - digimonsPerPage;
@@ -37,9 +37,9 @@ function App() {
     const uniqueLevels = getUniqueMonsterLevels(parsedDigimonData);
 
     setDigimons(parsedDigimonData);
-    setAllDigimons(digimons);
-    setDigimonLevels(uniqueLevels);
+    setAllDigimons(parsedDigimonData);
     setLoadingData(false);
+    setLevels(uniqueLevels);
   };
 
   const getUniqueMonsterLevels = (arrayDigimons) => {
@@ -65,17 +65,17 @@ function App() {
   };
 
   const searchDigimonsHandler = (searchText) => {
-    console.log('searched term: ', searchText);
-
-    const searchResults = digimons.filter((digimon) =>
+    const searchResults = allDigimons.filter((digimon) =>
       digimon.name.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    setDigimons(searchResults);
   };
 
   return (
-    <div className="container mt-3 text-center border">
+    <div className="container mt-3 text-center">
       <img src={logo} alt="digimon logo" className="my-3" />
-      <Searchbar className="border" onSearchDigimons={searchDigimonsHandler} />
+      <Searchbar onSearchDigimons={searchDigimonsHandler} />
       <DigimonList
         digimons={digimonsInCurrentPage}
         loading={loadingData}
@@ -90,7 +90,7 @@ function App() {
         activePage={activePage}
       />
 
-      <Dropdown />
+      {/* <Dropdown levels={levels} /> */}
     </div>
   );
 }
