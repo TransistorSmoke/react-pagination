@@ -1,5 +1,7 @@
 # React Pagination With DIGIMONS! :)
 
+https://digimon-pagination.netlify.app
+
 This React app pulls Digimon data from an API and displays results section by section, using pagination.
 
 ....Digimon was one of my favorite animes when I was about 13-14 years old.......... thus... the sample.
