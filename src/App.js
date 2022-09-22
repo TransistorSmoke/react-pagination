@@ -4,7 +4,7 @@ import './custom.scss';
 import logo from './assets/logo.png';
 import Pagination from './components/Pagination';
 import Searchbar from './components/UI/Searchbar';
-import Dropdown from './components/UI/Dropdown';
+// import Dropdown from './components/UI/Dropdown';
 
 function App() {
   const [digimons, setDigimons] = useState([]);
@@ -14,7 +14,7 @@ function App() {
   const [activePage, setActivePage] = useState(1);
   const [digimonInfo, setDigimonInfo] = useState(null);
   const [allDigimons, setAllDigimons] = useState([]);
-  const [levels, setLevels] = useState(null);
+  // const [levels, setLevels] = useState(null);
 
   const lastIndexInPage = currentPage * digimonsPerPage;
   const firstIndexInPage = lastIndexInPage - digimonsPerPage;
@@ -39,7 +39,7 @@ function App() {
     setDigimons(parsedDigimonData);
     setAllDigimons(parsedDigimonData);
     setLoadingData(false);
-    setLevels(uniqueLevels);
+    // setLevels(uniqueLevels);
   };
 
   const getUniqueMonsterLevels = (arrayDigimons) => {

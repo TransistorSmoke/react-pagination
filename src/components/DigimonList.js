@@ -29,7 +29,7 @@ const DigimonList = (props) => {
         </ul>
       ) : (
         <div className="py-5">
-          <h3>No digimon data</h3>
+          <h3>No digimon data available</h3>
         </div>
       )}
     </div>
